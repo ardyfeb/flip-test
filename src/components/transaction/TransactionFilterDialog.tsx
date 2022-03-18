@@ -1,5 +1,5 @@
 import { default as React, useEffect } from 'react'
-import { default as Animated, interpolateColor, useAnimatedStyle, useSharedValue, withTiming, ZoomIn, ZoomInEasyDown, ZoomInEasyUp, ZoomOutEasyDown, ZoomOutEasyUp } from 'react-native-reanimated'
+import { default as Animated, interpolateColor, useAnimatedStyle, useSharedValue, withTiming, ZoomIn, ZoomOut } from 'react-native-reanimated'
 import { useSnapshot } from 'valtio'
 import { Portal } from '@gorhom/portal'
 
@@ -66,28 +66,26 @@ export const TransactionFilterDialog: React.FunctionComponent = props => {
           <Box flex={1} alignItems="stretch" justifyContent="center" px={6}>
             {
               transactionFilterSnap.dialogVisible && (
-                <Animated.View entering={ZoomInEasyUp.duration(200)} exiting={ZoomOutEasyUp.duration(200)}>
-                  <Box bgColor="white" borderRadius="base" p={6}>
-                    {
-                      TRANSACTION_ORDER_OPTIONS.map(
-                        filter => (
-                          <Pressable 
-                            flexDirection="row" 
-                            alignItems="center"
-                            py={4}
-                            key={filter.key || 'default'}
-                            onPress={() => onOrderOptionPress(filter.key!!)}
-                          >
-                            <Radio selected={filter.key == transactionFilterSnap.orderBy} />
-                            <Text color="textRegular" font="regular" ml={2}>
-                              {filter.title}
-                            </Text>
-                          </Pressable>
-                        )
+                <Box bgColor="white" borderRadius="base" p={6} elevation={2}>
+                  {
+                    TRANSACTION_ORDER_OPTIONS.map(
+                      filter => (
+                        <Pressable 
+                          flexDirection="row" 
+                          alignItems="center"
+                          py={4}
+                          key={filter.key || 'default'}
+                          onPress={() => onOrderOptionPress(filter.key!!)}
+                        >
+                          <Radio selected={filter.key == transactionFilterSnap.orderBy} />
+                          <Text color="textRegular" font="regular" ml={2}>
+                            {filter.title}
+                          </Text>
+                        </Pressable>
                       )
-                    }
-                  </Box>
-                </Animated.View>
+                    )
+                  }
+                </Box>
               )
             }
           </Box>
